@@ -22,9 +22,16 @@
   (vim.api.nvim_set_keymap :v lhs (.. ":'<,'>" rhs "<CR>") {:noremap true :silent true}))
 
 
+(lambda aucmd! [events pattern callback]
+  (vim.api.nvim_create_autocmd events {: pattern : callback}))
+
+
 ;; -------------------- ;;
 ;;         MAPS         ;;
 ;; -------------------- ;;
+
+(aucmd! [:BufEnter] [:*.fnl :*.fennel] (fn []
+
 (nmap! eval_buffer :FnlBuffer)
 (vmap! eval_buffer :FnlBuffer)
 
@@ -32,6 +39,7 @@
 (vmap! peak_buffer :FnlPeak)
 
 (nmap! goto_output :FnlGotoOutput)
+))
 
 
 [true]
